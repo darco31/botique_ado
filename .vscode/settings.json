@@ -28,6 +28,7 @@
       "Activewear",
       "corecss",
       "corejs",
+      "csrfmiddlewaretoken",
       "Homeware",
       "lineitem",
       "postloadjs"

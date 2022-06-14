@@ -9,24 +9,24 @@ import stripe
 
 @require_POST
 @csrf_exempt
-
 def webhook(request):
-    """Setup"""
+    """Listen for webhooks from Stripe"""
+    # Setup
     wh_secret = settings.STRIPE_WH_SECRET
-    stripe.api.key = settings.STRIPE_SECRET_KEY
+    stripe.api_key = settings.STRIPE_SECRET_KEY
 
-    """Get the webhook data and verify its signature"""
-    payload = request.data
-    sig_header = request.headers['HTTP_STRIPE_SIGNATURE']
+    # Get the webhook data and verify its signature
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
 
     try:
         event = stripe.Webhook.construct_event(
-            payload, sig_header, wh_secret
+        payload, sig_header, wh_secret
         )
     except ValueError as e:
         # Invalid payload
-        return HttpResponse(status=200)
+        return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
         return HttpResponse(status=400)
