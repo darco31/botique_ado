@@ -29,23 +29,21 @@ var card = elements.create('card', {
 });
 card.mount('#card-element');
 
-// Handle realtime validations errors on the card element
-
+// Handle realtime validation errors on the card element
 card.addEventListener('change', function(event) {
     var errorDiv = document.getElementById('card-errors');
     if (event.error) {
         var html = `
-        <span class="icon" role="alert">
-            <i class="fas fa-times"></i>
-        </span>
-        <span>${event.error.message}</span>
+            <span class="icon" role="alert">
+                <i class="fas fa-times"></i>
+            </span>
+            <span>${event.error.message}</span>
         `;
         $(errorDiv).html(html);
     } else {
         errorDiv.textContent = '';
     }
 });
-
 
 // Handle form submit
 var form = document.getElementById('payment-form');
@@ -68,7 +66,6 @@ form.addEventListener('submit', function(ev) {
         'save_info': saveInfo,
     };
     var url = '/checkout/cache_checkout_data/';
-
 
     $.post(url, postData).done(function() {
         stripe.confirmCardPayment(clientSecret, {
@@ -99,7 +96,6 @@ form.addEventListener('submit', function(ev) {
                     state: $.trim(form.county.value),
                 }
             },
-
         }).then(function(result) {
             if (result.error) {
                 var errorDiv = document.getElementById('card-errors');
