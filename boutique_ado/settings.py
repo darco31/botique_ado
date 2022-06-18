@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 from pathlib import Path
 
@@ -105,13 +106,16 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+    'default': dj_database_url.parse('postgres://trzotutmiigiaa:4e4f7ea23003b32a99f7fb6b88e9d840b6bb26a1a148efb248c4772a7a585085@ec2-52-214-23-110.eu-west-1.compute.amazonaws.com:5432/d1ukuskmghca76')
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
